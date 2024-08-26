@@ -21,14 +21,15 @@ LIMIT 5;
 
 
 
-	SELECT skill_id, COUNT(*) AS skill_count, skills as skill_name
-	FROM 
-	skills_job_dim AS skills_to_job
+SELECT skill_id,
+	COUNT(*) AS skill_count,
+	skills as skill_name
+FROM skills_job_dim AS skills_to_job
 	INNER JOIN job_postings_fact AS job_postings USING (job_id)
 	INNER JOIN skills_dim AS skills USING (skill_id)
-	WHERE 1=1 --job_postings.job_work_from_home = True 
-   	  AND job_postings.job_title_short = 'Data Engineer'
-	GROUP BY skill_id, skills
-	ORDER BY
-	skill_count DESC
-	LIMIT 10;
+WHERE 1 = 1 --job_postings.job_work_from_home = True 
+	AND job_postings.job_title_short = 'Data Engineer'
+GROUP BY skill_id,
+	skills
+ORDER BY skill_count DESC
+LIMIT 10;
